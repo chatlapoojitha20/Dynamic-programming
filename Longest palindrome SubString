@@ -1,0 +1,40 @@
+class Solution:
+    def longestPalindrome(self, s):
+        if not s or len(s) < 2:
+            return s
+
+        start = 0
+        max_len = 1
+
+        def expand(left, right):
+            nonlocal_start = 0  
+            while left >= 0 and right < len(s) and s[left] == s[right]:
+                curr_len = right - left + 1
+                if curr_len > self.max_len:
+                    self.start = left
+                    self.max_len = curr_len
+                left -= 1
+                right += 1
+
+        self.start = 0
+        self.max_len = 1
+
+        for i in range(len(s)):
+            left = i
+            right = i
+            while left >= 0 and right < len(s) and s[left] == s[right]:
+                if right - left + 1 > self.max_len:
+                    self.start = left
+                    self.max_len = right - left + 1
+                left -= 1
+                right += 1
+            left = i
+            right = i + 1
+            while left >= 0 and right < len(s) and s[left] == s[right]:
+                if right - left + 1 > self.max_len:
+                    self.start = left
+                    self.max_len = right - left + 1
+                left -= 1
+                right += 1
+
+        return s[self.start:self.start + self.max_len]
